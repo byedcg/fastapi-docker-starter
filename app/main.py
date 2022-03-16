@@ -46,3 +46,9 @@ class Item(BaseModel):
 def send_data(item: Item):
     item_dict = item.dict()
     return item_dict
+
+
+if __name__ == "__main__":
+    import uvicorn
+
+    uvicorn.run(app, host="0.0.0.0", port=8000)
