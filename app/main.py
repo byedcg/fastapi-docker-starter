@@ -1,10 +1,18 @@
+import time
+from functools import lru_cache
 from typing import Optional
+
 from fastapi import FastAPI, Request, Response
 from pydantic import BaseModel
-import time
 
+from . import config
 
 app = FastAPI()
+
+
+@lru_cache()  # prevent from reading .env file every request
+def get_settings():
+    return config.Settings()
 
 
 @app.get("/")
