@@ -49,6 +49,7 @@ def send_data(item: Item):
 
 
 if __name__ == "__main__":
+    # debug mode
     import uvicorn
 
     uvicorn.run(app, host="0.0.0.0", port=8000)

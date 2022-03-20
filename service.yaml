@@ -1,0 +1,9 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: ${GCP_SERVICE_NAME}
+spec:
+  template:
+    spec:
+      containers:
+      - image: ${IMAGE_NAME}

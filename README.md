@@ -1,4 +1,5 @@
 # fastapi-docker-starter
+
 FastAPI boilerplate for easy development and deployment.
 
 ## Development
@@ -9,7 +10,7 @@ FastAPI boilerplate for easy development and deployment.
 uvicorn app.main:app --reload
 ```
 
-### Addresses
+### Endpoints
 
 ```shell
 localhost:8000/
