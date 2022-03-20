@@ -2,22 +2,33 @@ import time
 from functools import lru_cache
 from typing import Optional
 
-from fastapi import FastAPI, Request, Response
+from fastapi import Depends, FastAPI, Request, Response
 from pydantic import BaseModel
 
-from . import config
-
-app = FastAPI()
+from .config import Settings
 
 
 @lru_cache()  # prevent from reading .env file every request
 def get_settings():
-    return config.Settings()
+    return Settings()
+
+
+app = FastAPI()
 
 
 @app.get("/")
 async def root():
     return {"message": "Hello World"}
+
+
+@app.get("/info")
+async def info(settings: Settings = Depends(get_settings)):
+    return {"app_name": settings.app_name}
+
+
+@app.get("/bye")
+async def bye():
+    return {"message": "Bye bye!"}
 
 
 # middleware run on every request
@@ -51,5 +62,7 @@ def send_data(item: Item):
 if __name__ == "__main__":
     # debug mode
     import uvicorn
+    import os
 
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    port = int(os.environ.get("DEV_PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)

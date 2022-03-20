@@ -33,3 +33,12 @@ poetry export -f requirements.txt -o requirements-freeze.txt --without-hashes
 ```bash
 poetry shell
 ```
+
+### Run scripts
+
+```bash
+poetry run format
+poetry run lint
+poetry run start
+poetry run test
+```

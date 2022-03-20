@@ -5,21 +5,29 @@ from subprocess import check_call
 
 def format() -> None:
     check_call(
-        ["black", "--check", "--diff", "src/", "tests/"],
+        ["black", "--check", "--diff", "app/", "tests/"],
     )
 
 
 def reformat() -> None:
-    check_call(["black", "src/", "tests/"])
+    check_call(["black", "app/", "tests/"])
 
 
 def lint() -> None:
-    check_call(["flake8", "src/", "tests/"])
+    check_call(["pylint", "app/", "tests/"])
     check_call(["mypy", "src/backend/", "tests/"])
 
 
-def start() -> None:
-    check_call(["python", "src/backend/run.py"])
+def dev() -> None:
+    check_call(
+        [
+            "uvicorn",
+            "app.main:app",
+            "--port",
+            "8000",
+            "--reload",
+        ]
+    )  # "python", "-m", "app.main"])
 
 
 def test() -> None:
