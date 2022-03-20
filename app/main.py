@@ -5,6 +5,8 @@ from logging.config import dictConfig
 
 from fastapi import Depends, FastAPI, Request, Response
 
+from app.routers import background
+
 from . import models
 from .config import LogConfig, Settings
 from .routers import echo, files
@@ -18,6 +20,7 @@ def get_settings():
 app = FastAPI()
 app.include_router(echo.router, prefix="/echo")
 app.include_router(files.router, prefix="/files")
+app.include_router(background.router, prefix="/background")
 
 # Setup logging
 dictConfig(LogConfig().dict())

@@ -31,7 +31,7 @@ def dev() -> None:
 
 
 def test() -> None:
-    check_call(["pytest", "tests/"])
+    check_call(["pytest", "tests/", "-v"])
 
 
 def poetry_export() -> None:
