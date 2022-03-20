@@ -54,7 +54,7 @@ class Item(BaseModel):
 
 
 @app.post("/send")
-def send_data(item: Item):
+async def send_data(item: Item):
     item_dict = item.dict()
     return item_dict
 
