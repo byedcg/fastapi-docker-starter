@@ -2,12 +2,12 @@ import logging
 import time
 from functools import lru_cache
 from logging.config import dictConfig
-from typing import Optional
 
 from fastapi import Depends, FastAPI, Request, Response
 
 from . import models
 from .config import LogConfig, Settings
+from .routers import echo
 
 
 @lru_cache()  # prevent from reading .env file every request
@@ -16,7 +16,7 @@ def get_settings():
 
 
 app = FastAPI()
-
+app.include_router(echo.router, prefix="/echo")
 
 # Setup logging
 dictConfig(LogConfig().dict())
@@ -62,12 +62,6 @@ async def add_process_time_header(request: Request, call_next):
     return response
 
 
-@app.get("/echo/{message}")
-async def echo(message: str, query: Optional[str] = None):
-    time.sleep(1)
-    return {"message": message, "query": query}
-
-
 @app.post("/send")
 def send_data(item: models.Item):
     item_dict = item.dict()
@@ -80,7 +74,7 @@ if __name__ == "__main__":
 
     import uvicorn
 
-    fastapi_logger.setLevel(logging.DEBUG)
+    logger.setLevel(logging.DEBUG)
 
     port = int(os.environ.get("DEV_PORT", 8000))
     uvicorn.run(app, host="0.0.0.0", port=port)
