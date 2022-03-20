@@ -32,3 +32,17 @@ def dev() -> None:
 
 def test() -> None:
     check_call(["pytest", "tests/"])
+
+
+def poetry_export() -> None:
+    check_call(
+        [
+            "poetry",
+            "export",
+            "-f",
+            "requirements.txt",
+            "-o",
+            "requirements-freeze.txt",
+            "--without-hashes",
+        ]
+    )

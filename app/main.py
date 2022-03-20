@@ -7,7 +7,7 @@ from fastapi import Depends, FastAPI, Request, Response
 
 from . import models
 from .config import LogConfig, Settings
-from .routers import echo
+from .routers import echo, files
 
 
 @lru_cache()  # prevent from reading .env file every request
@@ -17,6 +17,7 @@ def get_settings():
 
 app = FastAPI()
 app.include_router(echo.router, prefix="/echo")
+app.include_router(files.router, prefix="/files")
 
 # Setup logging
 dictConfig(LogConfig().dict())
