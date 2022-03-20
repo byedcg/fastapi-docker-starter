@@ -14,8 +14,8 @@ def reformat() -> None:
 
 
 def lint() -> None:
+    check_call(["mypy", "app/", "tests/", "--ignore-missing-imports"])
     check_call(["pylint", "app/", "tests/"])
-    check_call(["mypy", "src/backend/", "tests/"])
 
 
 def dev() -> None:
