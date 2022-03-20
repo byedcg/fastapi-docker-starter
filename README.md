@@ -17,3 +17,19 @@ localhost:8000/
 localhost:8000/docs
 localhost:8000/redoc
 ```
+
+## Setup Poetry
+
+```bash
+poetry init
+poetry config --list
+poetry config virtualenvs.in-project true
+poetry install
+poetry export -f requirements.txt -o requirements-freeze.txt --without-hashes
+```
+
+### Activate
+
+```bash
+poetry shell
+```
